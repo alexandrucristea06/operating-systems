@@ -8,5 +8,13 @@
 int open(const char *filename, int flags, ...)
 {
 	/* TODO: Implement open system call. */
-	return -1;
+	mode_t mode = 0;
+	if (flags & O_CREAT) {
+		va_list args;
+		va_start (args, flags);
+		mode = va_arg (args, int);
+		va_end (args);
+	}
+	return openat (AT_FDCWD, filename, flags, mode);
+//	return -1;
 }
