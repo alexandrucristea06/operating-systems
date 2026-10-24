@@ -8,5 +8,5 @@
 int stat(const char *restrict path, struct stat *restrict buf)
 {
 	/* TODO: Implement stat(). */
-	return -1;
+	return syscall (SYS_newfstatat, AT_FDCWD, path, buf, 0);
 }
