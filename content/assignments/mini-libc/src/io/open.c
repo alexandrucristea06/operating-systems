@@ -15,6 +15,5 @@ int open(const char *filename, int flags, ...)
 		mode = va_arg (args, int);
 		va_end (args);
 	}
-	return openat (AT_FDCWD, filename, flags, mode);
-//	return -1;
+	return syscall (SYS_openat, AT_FDCWD, filename, flags, mode);
 }
