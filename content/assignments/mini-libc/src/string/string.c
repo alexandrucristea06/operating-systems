@@ -81,18 +81,20 @@ size_t strlen(const char *str)
 	return i;
 }
 
+#undef strchr
 char *strchr(const char *str, int c)
 {
 	/* TODO: Implement strchr(). */
 	char ch = (char) c;
 	for (; *str != '\0'; str++)
 		if (*str == ch)
-			return str;
+			return (char *) str;
 	if (*str == ch)
-		return str;
+		return (char *) str;
 	return NULL;
 }
 
+#undef strrchr
 char *strrchr(const char *str, int c)
 {
 	/* TODO: Implement strrchr(). */
@@ -100,15 +102,16 @@ char *strrchr(const char *str, int c)
 	const char *p = str + strlen (str);
 	for (; p >= str; p--)
 		if (*p == ch)
-			return p;
+			return (char *) p;
 	return NULL;
 }
 
+#undef strstr
 char *strstr(const char *haystack, const char *needle)
 {
 	/* TODO: Implement strstr(). */
 	if (*needle == '\0')
-		return haystack;
+		return (char *) haystack;
 	if (strlen (needle) > strlen (haystack))
 		return NULL;
 	for (; *haystack != '\0'; haystack++) {
@@ -116,7 +119,7 @@ char *strstr(const char *haystack, const char *needle)
 		const char *n = needle;
 		for (; *h != '\0' && *n != '\0' && *h == *n; h++, n++);
 		if (*n == '\0')
-			return haystack;
+			return (char *) haystack;
 	}
 	return NULL;
 }
@@ -126,7 +129,7 @@ char *strrstr(const char *haystack, const char *needle)
 	/* TODO: Implement strrstr(). */
 	const char *p = haystack + strlen (haystack) - strlen (needle);
 	if (*needle == '\0')
-		return haystack + strlen (haystack);
+		return (char *) (haystack + strlen (haystack));
 	if (strlen (needle) > strlen (haystack))
 		return NULL;
 	for (; p >= haystack; p--) {
@@ -134,7 +137,7 @@ char *strrstr(const char *haystack, const char *needle)
 		const char *n = needle;
 		for (; *h != '\0' && *n != '\0' && *h == *n; h++, n++);
 		if (*n == '\0')
-			return p;
+			return (char *) p;
 	}
 	return NULL;
 }
