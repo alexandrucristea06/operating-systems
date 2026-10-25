@@ -15,5 +15,10 @@ int open(const char *filename, int flags, ...)
 		mode = va_arg (args, int);
 		va_end (args);
 	}
-	return syscall (SYS_openat, AT_FDCWD, filename, flags, mode);
+	int ret = syscall (__NR_openat, AT_FDCWD, filename, flags, mode);
+	if (ret < 0) {
+		errno = -ret;
+		return -1;
+	}
+	return ret;
 }
